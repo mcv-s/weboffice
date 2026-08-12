@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document Editor</title>
+
+    <!-- Existing color system -->
+    <link rel="stylesheet" href="colors.css">
+
+    <!-- Additional application styling -->
+    <link rel="stylesheet" href="styles.css">
+
+
+
+</head>
+
+<body>
+
+    <div id="sidebarContainer"></div>
+
+    <!-- =========================================================
+         Top application bar
+         ========================================================= -->
+
+    <header class="app-bar">
+
+        <button class="hamburger-button" id="hamburgerButton" aria-label="Open menu" title="Open menu">
+            ☰
+        </button>
+
+        <div class="app-logo">
+            <div class="app-logo-icon">W</div>
+            <span>Document Editor</span>
+        </div>
+
+        <div class="top-actions">
+            <button class="top-button" id="saveButton" title="Save">
+                Save
+            </button>
+
+            <button class="top-button" id="undoTop" title="Undo">
+                ↶
+            </button>
+
+            <button class="top-button" id="redoTop" title="Redo">
+                ↷
+            </button>
+        </div>
+
+        <div class="filename" id="filename">
+            Document1
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         Ribbon tabs
+         ========================================================= -->
+
+    <nav class="ribbon-tabs">
+
+        <button class="ribbon-tab active" data-tab="home">
+            Home
+        </button>
+
+        <button class="ribbon-tab" data-tab="insert">
+            Insert
+        </button>
+
+        <button class="ribbon-tab" data-tab="draw">
+            Draw
+        </button>
+
+        <button class="ribbon-tab" data-tab="layout">
+            Layout
+        </button>
+
+        <button class="ribbon-tab" data-tab="references">
+            References
+        </button>
+
+        <button class="ribbon-tab" data-tab="review">
+            Review
+        </button>
+
+        <button class="ribbon-tab" data-tab="view">
+            View
+        </button>
+
+    </nav>
+
+
+    <!-- =========================================================
+         Ribbon
+         ========================================================= -->
+
+    <section class="ribbon" id="ribbon">
+
+
+        <!-- HOME -->
+
+        <div class="ribbon-section home-section">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="document.execCommand('cut')">
+                    <span class="icon">✂</span>
+                    Cut
+                </button>
+
+                <button class="ribbon-button large" onclick="document.execCommand('copy')">
+                    <span class="icon">▣</span>
+                    Copy
+                </button>
+
+                <button class="ribbon-button large" onclick="document.execCommand('paste')">
+                    <span class="icon">📋</span>
+                    Paste
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Clipboard
+            </div>
+
+        </div>
+
+
+        <div class="ribbon-section home-section">
+
+            <div class="ribbon-section-content">
+
+                <select class="ribbon-select font-select" id="fontFamily">
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Courier New">Courier New</option>
+                </select>
+
+                <select class="ribbon-select size-select" id="fontSize">
+                    <option value="1">10</option>
+                    <option value="2">12</option>
+                    <option value="3" selected>14</option>
+                    <option value="4">16</option>
+                    <option value="5">18</option>
+                    <option value="6">24</option>
+                    <option value="7">32</option>
+                </select>
+
+            </div>
+
+            <div class="ribbon-label">
+                Font
+            </div>
+
+        </div>
+
+
+        <div class="ribbon-section home-section">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button" onclick="format('bold')" title="Bold">
+                    <b>B</b>
+                </button>
+
+                <button class="ribbon-button" onclick="format('italic')" title="Italic">
+                    <i>I</i>
+                </button>
+
+                <button class="ribbon-button" onclick="format('underline')" title="Underline">
+                    <u>U</u>
+                </button>
+
+                <div class="ribbon-separator"></div>
+
+                <button class="ribbon-button" onclick="format('justifyLeft')">
+                    ≡
+                </button>
+
+                <button class="ribbon-button" onclick="format('justifyCenter')">
+                    ≡
+                </button>
+
+                <button class="ribbon-button" onclick="format('justifyRight')">
+                    ≡
+                </button>
+
+                <div class="ribbon-separator"></div>
+
+                <button class="ribbon-button" onclick="format('insertUnorderedList')">
+                    •☰
+                </button>
+
+                <button class="ribbon-button" onclick="format('insertOrderedList')">
+                    1☰
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Font & Paragraph
+            </div>
+
+        </div>
+
+
+        <div class="ribbon-section home-section">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="format('undo')">
+                    <span class="icon">↶</span>
+                    Undo
+                </button>
+
+                <button class="ribbon-button large" onclick="format('redo')">
+                    <span class="icon">↷</span>
+                    Redo
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Editing
+            </div>
+
+        </div>
+
+
+        <!-- INSERT -->
+
+        <div class="ribbon-section insert-section" style="display:none">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="insertHeading()">
+                    <span class="icon">H</span>
+                    Heading
+                </button>
+
+                <button class="ribbon-button large" onclick="insertTable()">
+                    <span class="icon">▦</span>
+                    Table
+                </button>
+
+                <button class="ribbon-button large" onclick="insertLink()">
+                    <span class="icon">🔗</span>
+                    Link
+                </button>
+
+                <button class="ribbon-button large" onclick="insertImage()">
+                    <span class="icon">▧</span>
+                    Image
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Insert
+            </div>
+
+        </div>
+
+
+        <!-- DRAW -->
+
+        <div class="ribbon-section draw-section" style="display:none">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="toggleDrawing()">
+                    <span class="icon">✎</span>
+                    Draw
+                </button>
+
+                <button class="ribbon-button large" onclick="clearDrawing()">
+                    <span class="icon">⌫</span>
+                    Clear
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Drawing
+            </div>
+
+        </div>
+
+
+        <!-- LAYOUT -->
+
+        <div class="ribbon-section layout-section" style="display:none">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="setPageWidth(816)">
+                    <span class="icon">▯</span>
+                    Normal
+                </button>
+
+                <button class="ribbon-button large" onclick="setPageWidth(1056)">
+                    <span class="icon">▤</span>
+                    Wide
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Page
+            </div>
+
+        </div>
+
+
+        <!-- REFERENCES -->
+
+        <div class="ribbon-section references-section" style="display:none">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="insertHeading()">
+                    <span class="icon">T</span>
+                    Heading
+                </button>
+
+                <button class="ribbon-button large" onclick="insertTOC()">
+                    <span class="icon">☷</span>
+                    Contents
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                References
+            </div>
+
+        </div>
+
+
+        <!-- REVIEW -->
+
+        <div class="ribbon-section review-section" style="display:none">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="checkSpelling()">
+                    <span class="icon">✓</span>
+                    Spelling
+                </button>
+
+                <button class="ribbon-button large" onclick="showWordCount()">
+                    <span class="icon">123</span>
+                    Word Count
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                Review
+            </div>
+
+        </div>
+
+
+        <!-- VIEW -->
+
+        <div class="ribbon-section view-section" style="display:none">
+
+            <div class="ribbon-section-content">
+
+                <button class="ribbon-button large" onclick="setZoom(100)">
+                    <span class="icon">100%</span>
+                    Normal
+                </button>
+
+                <button class="ribbon-button large" onclick="setZoom(120)">
+                    <span class="icon">+</span>
+                    Zoom
+                </button>
+
+            </div>
+
+            <div class="ribbon-label">
+                View
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         Workspace
+         ========================================================= -->
+
+    <main class="workspace" id="workspace">
+
+        <article id="document" class="document-page" contenteditable="true" spellcheck="true">
+            <h1>Document Title</h1>
+
+            <p>
+                Start writing your document here.
+            </p>
+
+            <p>
+                This is a browser-based document editor with a
+                Microsoft Word-inspired interface.
+            </p>
+        </article>
+
+    </main>
+
+
+    <!-- =========================================================
+         Drawing canvas
+         ========================================================= -->
+
+    <canvas id="drawingCanvas"></canvas>
+
+
+    <!-- =========================================================
+         Status bar
+         ========================================================= -->
+
+    <footer class="status-bar">
+
+        <div class="status-left">
+
+            <span id="pageStatus">
+                Page 1 of 1
+            </span>
+
+            <span id="wordCount">
+                0 words
+            </span>
+
+            <span>
+                English (United States)
+            </span>
+
+        </div>
+
+        <div class="status-right">
+
+            <div class="zoom-controls">
+
+                <button class="zoom-button" onclick="changeZoom(-10)">
+                    −
+                </button>
+
+                <span id="zoomDisplay">
+                    100%
+                </span>
+
+                <button class="zoom-button" onclick="changeZoom(10)">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+
+    <script>
+        /*
+         * =========================================================
+         * Sidebar
+         * =========================================================
+         */
+
+        const sidebarContainer =
+            document.getElementById("sidebarContainer");
+
+        let sidebarLoaded = false;
+        let sidebarLoading = null;
+
+
+        /*
+         * Load the reusable sidebar HTML.
+         */
+        async function loadSidebar() {
+
+            if (sidebarLoaded) {
+                return;
+            }
+
+            if (sidebarLoading) {
+                return sidebarLoading;
+            }
+
+            sidebarLoading = (async () => {
+
+                try {
+
+                    const response =
+                        await fetch("sidebar.html");
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            `Failed to load sidebar.html: ${response.status}`
+                        );
+
+                    }
+
+                    sidebarContainer.innerHTML =
+                        await response.text();
+
+                    sidebarLoaded = true;
+
+
+                    /*
+                     * Initialize the reusable sidebar
+                     * AFTER sidebar.html has been inserted.
+                     */
+                    if (
+                        window.Sidebar &&
+                        typeof window.Sidebar.initialize === "function"
+                    ) {
+
+                        window.Sidebar.initialize();
+
+                    }
+
+
+                    /*
+                     * Application-specific Save action.
+                     */
+                    const sidebarSave =
+                        document.getElementById("sidebarSave");
+
+                    if (sidebarSave) {
+
+                        sidebarSave.addEventListener(
+                            "click",
+                            () => {
+
+                                saveDocument();
+
+                                window.Sidebar.close();
+
+                            }
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Could not load sidebar:",
+                        error
+                    );
+
+                } finally {
+
+                    sidebarLoading = null;
+
+                }
+
+            })();
+
+            return sidebarLoading;
+        }
+
+
+        /*
+         * =========================================================
+         * Hamburger
+         * =========================================================
+         */
+
+        document
+            .getElementById("hamburgerButton")
+            .addEventListener(
+                "click",
+                async () => {
+
+                    await loadSidebar();
+
+                    if (
+                        window.Sidebar &&
+                        typeof window.Sidebar.open === "function"
+                    ) {
+
+                        window.Sidebar.open();
+
+                    }
+
+                }
+            );
+    </script>
+
+    <script src="sidebar.js"></script>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+</html>

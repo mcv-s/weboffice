@@ -1,0 +1,716 @@
+/* =========================================================
+           Base
+           ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+button {
+    color: var(--text);
+}
+
+
+/* =========================================================
+           Top application bar
+           ========================================================= */
+
+.app-bar {
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 14px;
+    gap: 14px;
+
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.app-logo-icon {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 5px;
+
+    background: var(--accent);
+    color: white;
+
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.top-button {
+    height: 32px;
+
+    padding: 0 10px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.top-button:hover {
+    background: var(--button-hover);
+}
+
+.filename {
+    margin-left: auto;
+
+    min-width: 150px;
+
+    color: var(--muted);
+    font-size: 13px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+           Ribbon tabs
+           ========================================================= */
+
+.ribbon-tabs {
+    height: 38px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding-left: 12px;
+
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.ribbon-tab {
+    height: 38px;
+
+    padding: 0 16px;
+
+    border: 0;
+    border-bottom: 2px solid transparent;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.ribbon-tab:hover {
+    background: var(--button-hover);
+    color: var(--text);
+}
+
+.ribbon-tab.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+}
+
+
+/* =========================================================
+           Ribbon
+           ========================================================= */
+
+.ribbon {
+    min-height: 92px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: stretch;
+
+    padding: 7px 10px;
+
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+
+    overflow-x: auto;
+}
+
+.ribbon-section {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 12px;
+
+    border-right: 1px solid var(--border);
+}
+
+.ribbon-section:last-child {
+    border-right: 0;
+}
+
+.ribbon-section-content {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ribbon-label {
+    margin-top: 4px;
+
+    text-align: center;
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.ribbon-button {
+    min-width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.ribbon-button:hover {
+    background: var(--button-hover);
+    border-color: var(--button-border);
+}
+
+.ribbon-button.large {
+    min-width: 52px;
+    height: 48px;
+
+    flex-direction: column;
+    gap: 3px;
+
+    font-size: 11px;
+}
+
+.ribbon-button.large .icon {
+    font-size: 20px;
+}
+
+.ribbon-select {
+    height: 32px;
+
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+
+    background: var(--button-bg);
+    color: var(--text);
+
+    padding: 0 7px;
+
+    outline: none;
+}
+
+.font-select {
+    width: 130px;
+}
+
+.size-select {
+    width: 60px;
+}
+
+.ribbon-separator {
+    width: 1px;
+    height: 28px;
+
+    background: var(--border);
+
+    margin: 0 3px;
+}
+
+
+/* =========================================================
+           Workspace
+           ========================================================= */
+
+.workspace {
+    flex: 1;
+    min-height: 0;
+
+    overflow: auto;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 32px;
+
+    background: var(--bg);
+}
+
+
+/* =========================================================
+           Document page
+           ========================================================= */
+
+.document-page {
+    width: 816px;
+    min-height: 1056px;
+
+    flex-shrink: 0;
+
+    padding: 72px 76px;
+
+    background: #ffffff;
+    color: #1e1e1e;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.18),
+        0 12px 35px rgba(0, 0, 0, 0.12);
+
+    outline: none;
+
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+    line-height: 1.5;
+
+    overflow-wrap: break-word;
+}
+
+.document-page:focus {
+    outline: none;
+}
+
+.document-page h1 {
+    font-size: 32px;
+    margin-top: 0;
+}
+
+.document-page h2 {
+    font-size: 24px;
+}
+
+.document-page h3 {
+    font-size: 19px;
+}
+
+.document-page img {
+    max-width: 100%;
+}
+
+.document-page table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.document-page td,
+.document-page th {
+    border: 1px solid #999;
+    padding: 6px;
+}
+
+
+/* =========================================================
+           Drawing layer
+           ========================================================= */
+
+#drawingCanvas {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 50;
+}
+
+body.drawing-mode #drawingCanvas {
+    pointer-events: auto;
+    cursor: crosshair;
+}
+
+
+/* =========================================================
+           Status bar
+           ========================================================= */
+
+.status-bar {
+    height: 26px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 10px;
+
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+
+    color: var(--status-text);
+
+    font-size: 12px;
+}
+
+.status-left,
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.zoom-button {
+    width: 22px;
+    height: 20px;
+
+    padding: 0;
+
+    border: 1px solid var(--button-border);
+    border-radius: 3px;
+
+    background: var(--button-bg);
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+           Context menu
+           ========================================================= */
+
+.context-menu {
+    position: fixed;
+
+    display: none;
+
+    min-width: 170px;
+
+    padding: 5px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
+
+    z-index: 100;
+}
+
+.context-menu button {
+    width: 100%;
+
+    border: 0;
+    border-radius: 3px;
+
+    padding: 7px 10px;
+
+    text-align: left;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.context-menu button:hover {
+    background: var(--button-hover);
+}
+
+
+/* =========================================================
+           Responsive
+           ========================================================= */
+
+@media (max-width: 900px) {
+    .workspace {
+        padding: 15px;
+    }
+
+    .document-page {
+        width: 100%;
+        min-height: calc(100vh - 260px);
+
+        padding: 45px;
+    }
+}
+
+@media (max-width: 650px) {
+    .ribbon-tab {
+        padding: 0 10px;
+    }
+
+    .ribbon {
+        min-height: 75px;
+    }
+
+    .ribbon-section {
+        padding: 0 6px;
+    }
+
+    .document-page {
+        padding: 30px;
+    }
+
+    .filename {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   Hamburger button
+   ========================================================= */
+
+.hamburger-button {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: transparent;
+    color: var(--text);
+
+    cursor: pointer;
+
+    font-size: 20px;
+}
+
+.hamburger-button:hover {
+    background: var(--button-hover);
+}
+
+
+/* =========================================================
+   Sidebar
+   ========================================================= */
+
+.app-sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 280px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+
+    box-shadow: 8px 0 25px rgba(0, 0, 0, 0.25);
+
+    z-index: 1000;
+
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+}
+
+.app-sidebar.open {
+    transform: translateX(0);
+}
+
+
+/* =========================================================
+   Sidebar header
+   ========================================================= */
+
+.sidebar-header {
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 12px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sidebar-close {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: transparent;
+    color: var(--text);
+
+    cursor: pointer;
+
+    font-size: 22px;
+}
+
+.sidebar-close:hover {
+    background: var(--button-hover);
+}
+
+
+/* =========================================================
+   Sidebar content
+   ========================================================= */
+
+.sidebar-content {
+    padding: 10px;
+}
+
+.sidebar-item {
+    width: 100%;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 12px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: transparent;
+    color: var(--text);
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    background: var(--button-hover);
+    border-color: var(--button-border);
+}
+
+.sidebar-icon {
+    width: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--muted);
+}
+
+.sidebar-divider {
+    height: 1px;
+
+    margin: 9px 4px;
+
+    background: var(--border);
+}
+
+
+
+
+
+/* =========================================================
+   Sidebar overlay
+   ========================================================= */
+
+.sidebar-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    z-index: 999;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+}
+
+.sidebar-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
